@@ -1,5 +1,6 @@
 import * as React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+// import { BrowserRouter as Router, HashRouter } from "react-router-dom";
 import { AppBar } from "material-ui";
 
 import Drawer from "../components/Drawer";
@@ -15,7 +16,7 @@ const App = (props: AppProps) => {
   const { drawerOpen, onToggle } = props;
   const onOpen = () => onToggle(true);
   return (
-    <Router>
+    <HashRouter>
       <div className="app">
         <Drawer open={drawerOpen} onRequestChange={onToggle} />
         <AppBar title="TypeScript + Redux + Router + MaterialUi + Flexboxgrid" onLeftIconButtonClick={onOpen} />
@@ -23,7 +24,7 @@ const App = (props: AppProps) => {
           <Routes />
         </div>
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 export default App;

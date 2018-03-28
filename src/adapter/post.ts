@@ -10,7 +10,7 @@ export type Posts = Array<Post>;
 
 export async function  fetchPosts() : Promise<Posts>{
     await sleep(1000);
-    const Post:Response = await fetch('http://jsonplaceholder.typicode.com/posts')
+    const Post:Response = await fetch('https://jsonplaceholder.typicode.com/posts')
     const json:Posts = await handleErrors(Post).json()
     return json;
 }

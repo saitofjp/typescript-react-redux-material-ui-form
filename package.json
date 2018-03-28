@@ -1,19 +1,42 @@
 {
-  "name": "my-react-bp",
+  "name": "react-ts-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "flexboxgrid": "^6.3.1",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
-    "react-tap-event-plugin": "^3.0.2"
+    "react-scripts-ts": "2.14.0",
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.3.0",
+    "redux-form": "^7.3.0",
+    "redux-thunk": "^2.2.0",
+    "typescript-fsa": "^2.5.0",
+    "typescript-fsa-reducers": "^0.4.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.0",
+    "@types/material-ui": "^0.21.1",
+    "@types/node": "^9.4.7",
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "@types/react-redux": "^5.0.15",
+    "@types/react-router-dom": "^4.2.5",
+    "@types/react-tap-event-plugin": "0.0.30",
+    "@types/redux": "^3.6.0",
+    "@types/redux-actions": "^2.2.4",
+    "@types/redux-form": "^7.2.2",
+    "@types/redux-thunk": "^2.1.0",
+    "typescript": "^2.7.2"
   }
 }

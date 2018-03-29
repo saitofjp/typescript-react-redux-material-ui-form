@@ -12,7 +12,7 @@
 
 # Redux的なとこ
 
-* 非同期はactionは、とりあえずthunk
+* 非同期actionは、とりあえずthunk
     * sagaやredux-observableのほうが良いのはわかるが非常にリッチでとまどう。
 
 * samle3がmodelレイヤーを採用
@@ -22,4 +22,4 @@
 * ダムのために、Containerを採用
     * それ以外はStateless Function Components(SFC)にしてみた。
     * bindCreatersは、公式否定なので不採用
-        * せっかくのSFCなので、できるだけ疎結合に
+        * せっかくのSFCなので、actionに依存しない。

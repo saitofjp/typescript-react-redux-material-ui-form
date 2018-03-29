@@ -1,4 +1,7 @@
+import { createSelector } from 'reselect';
 import { State } from "../reducers";
 
-export const isDrawerOpen = ({ environment: { drawerOpen } }: State) =>drawerOpen;
-export const isLoading = ({ environment: { loading } }: State) => loading;
+const environmentSelector = (state:State) => state.environment;
+
+export const isDrawerOpen = createSelector(environmentSelector, (environment)=> environment.drawerOpen)
+export const isLoading = createSelector(environmentSelector, (environment)=> environment.loading)

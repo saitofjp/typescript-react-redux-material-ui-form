@@ -1,11 +1,13 @@
+import { createSelector } from 'reselect';
 import { State } from "../reducers";
 
 //CQRSのQuery
+const smaple2Selector = (state:State) => state.sample2;
 
-export const isListFetched = ({ sample2: { list, page } }: State) =>
-  list.length !== 0;
+export const isListFetched = createSelector(smaple2Selector, ({ list, page }) =>
+  list.length !== 0);
 
-export const listOfPosts = ({ sample2: { list, page } }: State) => {
+export const listOfPosts = createSelector(smaple2Selector, ({ list, page } ) => {
   const limit = page * 10;
   return list.slice(0, limit > list.length ? list.length - 1 : limit);
-};
+})

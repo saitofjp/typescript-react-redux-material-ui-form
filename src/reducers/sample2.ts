@@ -3,6 +3,8 @@ import * as Sample2Actions from "../actions/sample2";
 import * as Environment from "../actions/environment";
 import { Posts } from "../adapter/post";
 
+// sample3と比べてみよう こわれつづけるpage...
+
 export interface Sample2State {
   fetch: boolean;
   list: Posts;

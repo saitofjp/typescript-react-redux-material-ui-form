@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { State } from "../reducers";
-import { listOfPosts } from "../selectors/sample2";
+import { listOfPosts } from "../selectors/sample3";
 import { isLoading } from "../selectors/environment";
 import Home, { HomeProps } from "../components/Home";
 

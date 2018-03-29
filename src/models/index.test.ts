@@ -1,26 +1,12 @@
  import * as Immutable from "immutable";
+import { Sample3 } from "./sample3";
 
 //immutable使うか思案中
+// typescriptの場合いらない可能性が結構高い
 
 interface CounterProps {
     value?: number;
     status: string;
-}
-class Base<P> {
-    constructor(params?:P) {
-        Object.assign(this, params);
-    }
-    toJson() : string {
-        return JSON.stringify(this);
-    }
-}
-export class Counter extends Base<CounterProps> {
-    readonly value: number;
-    readonly status: string;
-
-    constructor(params: CounterProps) {
-        super(params);
-    }
 }
 
 export class Counter2 extends Immutable.Record({
@@ -35,9 +21,19 @@ export class Counter2 extends Immutable.Record({
 }
 
 
-const a = new Counter({value:1, status:"a"});
+const a = new Sample3();
 // console.log(a.value=2)
-console.log(a.toJson());
+console.log(a.toJS());
+console.log(Object.assign({},a))
+console.log(a);
+
+const b = new Sample3().merge(a);
+console.log(a == b)
+
+const c = b.merge({page:2});
+console.log(c);
 
 const a2 = new Counter2({value:1, status:"a"});
 console.log(a2.set("value",5).toJS());
+const b2 = a2.merge({value:2})
+console.log(b2.toJS())

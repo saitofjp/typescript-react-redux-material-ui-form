@@ -3,6 +3,9 @@ import actionCreatorFactory from 'typescript-fsa';
 
 import { Posts } from '../adapter/post';
 
+//sample3のモデルと兼用してるよ
+
+
 //腐敗層(containers)で変換にするべき
 import { MaterialUiFormData } from '../components/MaterialUiForm';
 

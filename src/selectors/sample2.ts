@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import { State } from "../reducers";
 
+//　sample3と比べてみよう
+
 //CQRSのQuery
 const smaple2Selector = (state:State) => state.sample2;
 

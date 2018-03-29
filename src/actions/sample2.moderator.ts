@@ -3,11 +3,14 @@ import { loading } from './environment';
 import { receiveList, receivePosts } from './sample2';
 
 import { fetchPosts, Posts } from '../adapter/post';
-import { isListFetched } from '../selectors/sample2';
+
+//sample3のモデルと兼用してるよ
 
 export function getPosts2(): ThunkAction<Promise<void>> {
     return async (dispatch, getState) => {
-        if (isListFetched(getState())) {
+        //型安全ならセレクタいらない。
+        const { sample3 } = getState();
+        if (sample3.isFetched) {
             return
         }
         try {

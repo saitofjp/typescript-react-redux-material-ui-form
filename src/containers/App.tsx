@@ -5,7 +5,7 @@ import { State } from "../reducers";
 import { toggleDrawer } from "../actions/environment";
 import { initEnvironment } from "../actions/environment.moderator";
 import { resetPage } from "../actions/sample2";
-import { getPosts2 } from "../actions/sample2.moderator";
+import { fetchList } from "../actions/sample3.moderator";
 
 import { isDrawerOpen } from "../selectors/environment";
 
@@ -20,7 +20,7 @@ export default connect(
   (dispatch: Dispatch<State>) => ({
     onInit: () => {
       dispatch(initEnvironment());
-      dispatch(getPosts2());
+      dispatch(fetchList());
     },
     onToggle: (open: boolean) => {
       dispatch(toggleDrawer(open));

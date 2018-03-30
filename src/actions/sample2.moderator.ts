@@ -6,6 +6,7 @@ import { fetchPosts, Posts } from '../adapter/post';
 
 //sample3のモデルと兼用してるよ
 
+
 export function getPosts2(): ThunkAction<Promise<void>> {
     return async (dispatch, getState) => {
         //型安全ならセレクタいらない。

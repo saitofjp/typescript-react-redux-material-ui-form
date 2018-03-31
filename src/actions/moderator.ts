@@ -13,7 +13,6 @@ export const bindModeratorAction = <PARAMS, RESULT>(
         dispatch: Dispatch<State>,
         getState: () => State
     }) => Promise<RESULT | void>,
-    params:boolean = false,
     loadingAction: boolean = true
 ) => {
     return (paramsArg?: PARAMS) => {

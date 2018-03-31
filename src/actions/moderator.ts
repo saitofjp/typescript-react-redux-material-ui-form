@@ -13,13 +13,19 @@ export const bindModeratorAction = <PARAMS, RESULT>(
         dispatch: Dispatch<State>,
         getState: () => State
     }) => Promise<RESULT | void>,
-    loadingAction: boolean = true
+    opt: {
+        start?: () => ThunkAction<void, State, void>,
+        end?: () => ThunkAction<void, State, void>,
+    } = {
+            start: () => (dispatch)=> dispatch(loading(true)),
+            end: () => (dispatch) => dispatch(loading(false))
+        }
 ) => {
     return (paramsArg?: PARAMS) => {
-        const params = paramsArg? paramsArg : {} as PARAMS;
+        const params = paramsArg ? paramsArg : {} as PARAMS;
         return async (dispatch: Dispatch<State>, getState: () => State) => {
             try {
-                if (loadingAction) dispatch(loading(true))
+                if (opt.start) dispatch(opt.start())
                 dispatch(asyncAction.started(params));
                 const res = await moderator({
                     params,
@@ -34,7 +40,7 @@ export const bindModeratorAction = <PARAMS, RESULT>(
             } catch (error) {
                 dispatch(asyncAction.failed({ params, error }));
             } finally {
-                if (loadingAction) dispatch(loading(false));
+                if (opt.end) dispatch(opt.end())
             }
         };
     }

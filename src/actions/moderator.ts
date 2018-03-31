@@ -7,15 +7,17 @@ import { loading } from "./environment";
 export type ThunkAction<R> = ThunkAction<R, State, void>;
 
 export const bindModeratorAction = <PARAMS, RESULT>(
-    asyncAction: AsyncActionCreators<PARAMS | undefined, RESULT, Error>,
+    asyncAction: AsyncActionCreators<PARAMS, RESULT, Error>,
     moderator: (context: {
-        params: PARAMS | undefined,
+        params: PARAMS,
         dispatch: Dispatch<State>,
         getState: () => State
-    }) => Promise<RESULT | void> ,
+    }) => Promise<RESULT | void>,
+    params:boolean = false,
     loadingAction: boolean = true
 ) => {
-    return (params?: PARAMS | undefined) => {
+    return (paramsArg?: PARAMS) => {
+        const params = paramsArg? paramsArg : {} as PARAMS;
         return async (dispatch: Dispatch<State>, getState: () => State) => {
             try {
                 if (loadingAction) dispatch(loading(true))

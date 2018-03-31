@@ -5,4 +5,4 @@ import { Posts } from '../adapter/post';
 
 const actionCreator = actionCreatorFactory("Sample3");
 
-export const list = actionCreator.async<undefined, Posts>("LIST");
+export const fetchList = actionCreator.async<void, Posts>("FETCH_LIST");

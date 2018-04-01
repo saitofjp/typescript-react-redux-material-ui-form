@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
-  "main": "electron/electron-starter.js",
+  "main": "electron/main/index.js",
   "dependencies": {
     "flexboxgrid": "^6.3.1",
     "immutable": "^3.8.2",
@@ -28,7 +28,7 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "electron": "electron .",
-    "electron:react": "node electron/electron-wait-react"
+    "electron:react": "node electron/starter"
   },
   "devDependencies": {
     "@types/immutable": "^3.8.7",

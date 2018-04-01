@@ -12,7 +12,6 @@ const tryConnection = () => client.connect({port: port}, () => {
         if(!startedElectron) {
             console.log('starting electron');
             startedElectron = true;
-            const exec = require('child_process').exec;
             exec('npm run electron');
         }
     }

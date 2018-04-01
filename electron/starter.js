@@ -12,7 +12,7 @@ const tryConnection = () => client.connect({port: port}, () => {
         if(!startedElectron) {
             console.log('starting electron');
             startedElectron = true;
-            exec('npm run electron');
+            exec('npm run electron:start');
         }
     }
 );

@@ -1,5 +1,6 @@
-const electron = require('electron');
-const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+import * as electron from "electron"
+const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } =
+require('electron-devtools-installer');
 
 
 // Module to control application life.
@@ -12,7 +13,7 @@ const url = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow : electron.BrowserWindow | null ;
 
 function createWindow() {
     // Create the browser window.
@@ -66,7 +67,7 @@ app.on('activate', function () {
 app.on('ready', () => {
     [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].forEach(extension => {
       installExtension(extension)
-          .then((name) => console.log(`Added Extension: ${name}`))
-          .catch((err) => console.log('An error occurred: ', err));
+          .then((name:string) => console.log(`Added Extension: ${name}`))
+          .catch((err:any) => console.log('An error occurred: ', err));
     });
 });

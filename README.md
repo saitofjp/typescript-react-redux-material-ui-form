@@ -11,7 +11,7 @@
 ``````
 
 ``````
-  npm run electron:starter
+  npm run electron:react
 ``````
 
 

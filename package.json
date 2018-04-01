@@ -2,7 +2,8 @@
   "name": "react-ts-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://saitofjp.github.io/typescript-react-redux-material-ui-form/",
+  "homepage": "./",
+  "main": "electron/electron-starter.js",
   "dependencies": {
     "flexboxgrid": "^6.3.1",
     "immutable": "^3.8.2",
@@ -25,7 +26,9 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "electron": "electron .",
+    "electron:react": "node electron/electron-wait-react"
   },
   "devDependencies": {
     "@types/immutable": "^3.8.7",
@@ -42,6 +45,8 @@
     "@types/redux-form": "^7.2.2",
     "@types/redux-thunk": "^2.1.0",
     "@types/reselect": "^2.2.0",
+    "electron": "^1.8.4",
+    "electron-devtools-installer": "^2.2.3",
     "typescript": "^2.7.2"
   }
 }

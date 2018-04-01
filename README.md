@@ -1,13 +1,24 @@
-# install & start
+# install
 
 ``````
   npm install
+``````
+
+# start
+
+``````
   npm start
 ``````
+
+``````
+  npm run electron:starter
+``````
+
+
 # 説明
 
 
-だいたい題名通り
+だいたい題名通り(+electron)
 他は、package.json
 
 # Redux的なとこ

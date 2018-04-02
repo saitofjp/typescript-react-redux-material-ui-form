@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer, { State } from '../reducers';
 import { Store } from 'react-redux';
-import { actionBinderDispatcher } from '../moderators';
+import { actionChain } from '../moderators';
 
 //https://github.com/rakshithmm23/local/blob/master/src/store/configureStore.js
 
@@ -16,7 +16,7 @@ const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 
 
 const finalCreateStore = composeSetup(
   // applyMiddleware(promiseMiddleware, thunk),
-  applyMiddleware(thunk, actionBinderDispatcher ),
+  applyMiddleware(thunk, actionChain ),
   // reduxReactRouter({ routes, createHistory })
 )(createStore);
 

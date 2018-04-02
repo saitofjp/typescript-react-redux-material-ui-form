@@ -1,8 +1,8 @@
 import { scrollBottom, initEnvironment } from '../actions/environment';
-import { ActionBinder } from './support/bindActionDispacher';
+import { ActionChain } from './support/actionChain';
 import { ThunkAction } from './support';
 
-export const environmentBinder = new ActionBinder()
+export const environmentBinder = new ActionChain()
   .case<void, ThunkAction<void>>(initEnvironment, () => (dispatch) => {
     window.onscroll = () => {
       if (touchBottom()) {

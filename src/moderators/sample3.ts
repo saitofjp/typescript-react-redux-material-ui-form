@@ -1,12 +1,12 @@
 import { fetchListAsync, fetchList, fetchListP, fetchListAfter } from '../actions/sample3';
 
 import { fetchPosts } from '../adapter/post';
-import { ActionBinder } from './support/actionBinder';
-import { asyncActionTemplate } from './support';
+import { ActionChain } from './support/actionChain';
+import { asyncTemplate } from './support/asyncTemplate';
 
 
-export const sample3Binder = new ActionBinder()
-    .case(fetchList, asyncActionTemplate(fetchListAsync, () => async (dispatch, getState) => {
+export const sample3Binder = new ActionChain()
+    .case(fetchList, asyncTemplate(fetchListAsync, () => async (dispatch, getState) => {
         const { sample3 } = getState();
         if (sample3.isFetched) return;
         return fetchPosts();

@@ -10,7 +10,7 @@ import { ThunkAction } from './support';
 
 export const sample3Chain = new ActionChain()
     .chain(toggleDrawer, resetPage)
-    .chain(initEnvironment, fetchList)
+    .chain(initEnvironment.type, fetchList)
     //action chain
     .chain(fetchList, fetchListAfter)
     //action chian next param

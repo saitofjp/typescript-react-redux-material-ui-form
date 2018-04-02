@@ -1,37 +1,24 @@
 import { ThunkAction } from "redux-thunk";
-import { State } from "../reducers";
+import { State } from "../../reducers";
 import { AsyncActionCreators } from "typescript-fsa";
 import { Dispatch } from "react-redux";
-import { loading } from "./environment";
+import { loading as loadingAction } from "../../actions/environment";
+import { Action } from "redux";
 
 export type ThunkAction<R> = ThunkAction<R, State, void>;
 
-export const bindModeratorAction = <PARAMS, RESULT>(
+export const asyncActionTemplate = <PARAMS, RESULT>(
     asyncAction: AsyncActionCreators<PARAMS, RESULT, Error>,
-    moderator: (context: {
-        params: PARAMS,
-        dispatch: Dispatch<State>,
-        getState: () => State
-    }) => Promise<RESULT | void>,
-    opt: {
-        start?: () => ThunkAction<void, State, void>,
-        end?: () => ThunkAction<void, State, void>,
-    } = {
-            start: () => (dispatch)=> dispatch(loading(true)),
-            end: () => (dispatch) => dispatch(loading(false))
-        }
+    inner: (p:PARAMS) => ThunkAction<Promise<RESULT|undefined> , State ,any >,
+    loading: ((now:boolean) => Action) | false  = (now) => loadingAction(now)
 ) => {
     return (paramsArg?: PARAMS) => {
         const params = paramsArg ? paramsArg : {} as PARAMS;
         return async (dispatch: Dispatch<State>, getState: () => State) => {
             try {
-                if (opt.start) dispatch(opt.start())
+                if (loading) dispatch(loading(true))
                 dispatch(asyncAction.started(params));
-                const res = await moderator({
-                    params,
-                    dispatch,
-                    getState
-                });
+                const res = await dispatch(inner(params));
                 if (!res) return; //startのまま終わる
                 dispatch(asyncAction.done({
                     params,
@@ -40,8 +27,9 @@ export const bindModeratorAction = <PARAMS, RESULT>(
             } catch (error) {
                 dispatch(asyncAction.failed({ params, error }));
             } finally {
-                if (opt.end) dispatch(opt.end())
+                if (loading) dispatch(loading(false))
             }
         };
     }
 }
+

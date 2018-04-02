@@ -1,7 +1,7 @@
-import { fetchListAsync, fetchList, fetchListP } from '../actions/sample3';
+import { fetchListAsync, fetchList, fetchListP, fetchListAfter } from '../actions/sample3';
 
 import { fetchPosts } from '../adapter/post';
-import { ActionBinder } from './support/bindActionDispacher';
+import { ActionBinder } from './support/actionBinder';
 import { asyncActionTemplate } from './support';
 
 
@@ -11,10 +11,12 @@ export const sample3Binder = new ActionBinder()
         if (sample3.isFetched) return;
         return fetchPosts();
     }))
-    .case(fetchList, () => () => {
-        console.log("bind2");
+    .case(fetchList, () => fetchListAfter())
+    .case(fetchList, () => {
+        console.log("handler");
         return;
-    }).case(fetchListP, (param: number) => () => {
-        console.log("param", param);
+    })
+    .case(fetchListP, (param: number) => {
+        console.log("handler with param", param);
         return;
     });

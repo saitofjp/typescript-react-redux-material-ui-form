@@ -1,8 +1,9 @@
-import {sample3Binder} from "./sample3"
-import { environmentBinder } from "./environment";
-import { bindActionDispatcherCreater } from "./support/bindActionDispacher";
+import { actionBinderDispatcherCreater } from "./support/actionBinder";
 
-export const bindActionDispatcher = bindActionDispatcherCreater([
+import { sample3Binder } from "./sample3"
+import { environmentBinder } from "./environment";
+
+export const actionBinderDispatcher = actionBinderDispatcherCreater([
     environmentBinder,
     sample3Binder
 ])

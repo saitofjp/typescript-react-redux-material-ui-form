@@ -29,7 +29,7 @@ export class ActionChain {
     }
 }
 
-export const actionChainCreater = (chains: ActionChain[]): Middleware => {
+export const actionChainCreater = ( ...chains: ActionChain[]): Middleware => {
     const cases = chains
         .map((chain) => chain.build())
         .reduce((a, b) => a.concat(b), []);

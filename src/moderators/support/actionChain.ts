@@ -1,5 +1,5 @@
-import { Middleware, MiddlewareAPI, Dispatch } from "redux";
-import { ActionCreator as FsaActionCreator, AnyAction } from "typescript-fsa";
+import { Middleware, MiddlewareAPI, Dispatch, Action } from "redux";
+import { ActionCreator as FsaActionCreator } from "typescript-fsa";
 
 export type ActionCreatorOrHandler<PARAMS, ACTION> = (params?: PARAMS) => (ACTION | void);
 
@@ -35,7 +35,7 @@ export const actionChainCreater = (chains: ActionChain[]): Middleware => {
         .reduce((a, b) => a.concat(b), []);
 
     return <S>(api: MiddlewareAPI<S>) =>
-        (next: Dispatch<S>) => <A extends AnyAction>(currentAction: A): A => {
+        (next: Dispatch<S>) => <A extends Action>(currentAction: A): A => {
             const result = next(currentAction);
 
             for (const { action, handler } of cases) {

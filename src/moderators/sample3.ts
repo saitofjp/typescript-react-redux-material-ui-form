@@ -6,7 +6,7 @@ import { asyncTemplate } from './support/asyncTemplate';
 
 
 export const sample3Binder = new ActionChain()
-    .chain(fetchList, () => fetchListAfter())
+    .chain(fetchList, fetchListAfter)
     .chain(fetchList, () => {
         console.log("handler");
         return;

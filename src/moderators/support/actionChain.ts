@@ -3,20 +3,20 @@ import { ActionCreator as FsaActionCreator, AnyAction } from "typescript-fsa";
 
 export type ActionCreatorOrHandler<PARAMS, ACTION> = (params?: PARAMS) => (ACTION | void);
 
-interface Case<PARAMS, ACTION> {
+interface ChainCase<PARAMS, ACTION> {
     action: FsaActionCreator<PARAMS>;
     handler: ActionCreatorOrHandler<PARAMS, ACTION>;
 }
 
 export class ActionChain {
-    cases: Case<any, any>[] = [] //any以外の対処法が分からない。。
+    cases: ChainCase<any, any>[] = [] //any以外の対処法が分からない。。
 
     /**
      * target action paylod is handler function params
      * @param action
      * @param handler
      */
-    case<PARAMS, ACTION>(
+    chain<PARAMS, ACTION>(
         action: FsaActionCreator<PARAMS>,
         handler: ActionCreatorOrHandler<PARAMS, ACTION>
     ): ActionChain {

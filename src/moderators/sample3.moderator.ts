@@ -1,6 +1,6 @@
 import { fetchListAsync, fetchList, fetchListP } from '../actions/sample3';
 
-import { fetchPosts, Posts } from '../adapter/post';
+import { fetchPosts } from '../adapter/post';
 import { ActionBinder } from './support/bindActionDispacher';
 import { asyncActionTemplate } from './support';
 

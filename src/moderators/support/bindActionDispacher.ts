@@ -1,5 +1,5 @@
 import { Middleware, MiddlewareAPI, Dispatch } from "redux";
-import { isType, ActionCreator, Action, AnyAction} from "typescript-fsa";
+import { ActionCreator, AnyAction} from "typescript-fsa";
 
 interface Handler<PARAMS, ACTION> {
     target: ActionCreator<PARAMS>;

@@ -1,27 +1,27 @@
 import { Middleware, MiddlewareAPI, Dispatch } from "redux";
 import { ActionCreator, AnyAction} from "typescript-fsa";
 
-interface Handler<PARAMS, ACTION> {
+interface Binder<PARAMS, ACTION> {
     target: ActionCreator<PARAMS>;
     bind: (params: PARAMS) => ACTION;
 }
 
 export class ActionBinder {
-    handlers: Handler<any, any>[] = [] //any以外の対処法が分からない。。
+    binders: Binder<any, any>[] = [] //any以外の対処法が分からない。。
     case<PARAMS, ACTION>(
         target: ActionCreator<PARAMS>,
         bind: (params: PARAMS) => ACTION
     ): ActionBinder {
-        this.handlers.push({ target, bind })
+        this.binders.push({ target, bind })
         return this;
     }
     build() {
-        return this.handlers;
+        return this.binders;
     }
 }
 
 export const bindActionDispatcherCreater = (builders: ActionBinder[]): Middleware => {
-    const handlers = builders
+    const binders = builders
         .map((b) => b.build())
         .reduce((a, b) => a.concat(b), []);
 
@@ -29,7 +29,7 @@ export const bindActionDispatcherCreater = (builders: ActionBinder[]): Middlewar
         (next: Dispatch<S>) =>
             <A extends AnyAction >(action: A): A => {
                 const result = next(action);
-                for (const { target,  bind } of handlers) {
+                for (const { target,  bind } of binders) {
                     if (target.match(action)) {
                         api.dispatch(bind(action.payload));
                     }

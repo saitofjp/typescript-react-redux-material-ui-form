@@ -3,9 +3,13 @@ import { fetchListAsync, fetchList, fetchListP, fetchListAfter } from '../action
 import { fetchPosts } from '../adapter/post';
 import { ActionChain } from './support/actionChain';
 import { asyncTemplate } from './support/asyncTemplate';
+import { initEnvironment, toggleDrawer } from '../actions/environment';
+import { resetPage } from '../actions/sample2';
 
 
-export const sample3Binder = new ActionChain()
+export const sample3Chain = new ActionChain()
+    .chain(toggleDrawer, resetPage)
+    .chain(initEnvironment, fetchList)
     .chain(fetchList, fetchListAfter)
     .chain(fetchList, () => {
         console.log("handler");

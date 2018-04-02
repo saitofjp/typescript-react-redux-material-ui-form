@@ -1,15 +1,21 @@
+import 'rxjs';
+import 'typescript-fsa-redux-observable'; // <-- here
+import { Epic } from 'redux-observable';
+import { Action } from 'redux';
+import { State } from '../reducers';
 import { scrollBottom, initEnvironment } from '../actions/environment';
-import { ActionChain } from './support/actionChain';
-import { ThunkAction } from './support';
 
-export const environmentChain = new ActionChain()
-  .chain<void, ThunkAction<void>>(initEnvironment, () => (dispatch) => {
-    window.onscroll = () => {
-      if (touchBottom()) {
-        dispatch(scrollBottom());
+
+export const initEnvironmentEpic: Epic<Action, State> =
+  (action$, { dispatch, getState }) => action$.ofAction(initEnvironment)
+    .do(_ => {
+      window.onscroll = () => {
+        if (touchBottom()) {
+          dispatch(scrollBottom());
+        };
       };
-    };
-  })
+    })
+    .ignoreElements();
 
 
 //ただのコピペ

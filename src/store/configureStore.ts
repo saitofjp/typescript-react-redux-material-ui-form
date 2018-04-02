@@ -3,7 +3,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer, { State } from '../reducers';
 import { Store } from 'react-redux';
-import { actionChain } from '../moderators';
+// import { epicMiddleware } from '../epics';
+import { actionChainMiddleware } from '../moderators';
 
 //https://github.com/rakshithmm23/local/blob/master/src/store/configureStore.js
 
@@ -15,8 +16,8 @@ const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 
 
 
 const finalCreateStore = composeSetup(
-  // applyMiddleware(promiseMiddleware, thunk),
-  applyMiddleware(thunk, actionChain ),
+  // applyMiddleware(epicMiddleware, thunk),
+  applyMiddleware(thunk, actionChainMiddleware ),
   // reduxReactRouter({ routes, createHistory })
 )(createStore);
 

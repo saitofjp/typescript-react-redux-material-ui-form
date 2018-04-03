@@ -4,7 +4,7 @@ interface PayloadAction<P> extends Action {
     type: string;
     payload: P;
 }
-interface ActionCreatorFsa<P> {
+interface ActionCreatorTFSA<P> {
     type: string;
     match: (action: Action) => action is PayloadAction<P>;
     (payload: P): PayloadAction<P>;
@@ -14,7 +14,7 @@ export type ActionCreatorOrHandler<PARAMS, ACTION> = (params?: PARAMS) => (ACTIO
 
 class ChainFsa<PARAMS, ACTION> {
     constructor(
-        private target: ActionCreatorFsa<PARAMS>,
+        private target: ActionCreatorTFSA<PARAMS>,
         private handler: ActionCreatorOrHandler<PARAMS, ACTION>
     ) { }
 
@@ -47,7 +47,7 @@ export class ActionChain {
      * @param handler
      */
     chain<PARAMS, ACTION>(
-        target: ActionCreatorFsa<PARAMS> | string,
+        target: ActionCreatorTFSA<PARAMS> | string,
         handler: ActionCreatorOrHandler<PARAMS, ACTION>
     ): ActionChain {
         if (typeof target == "string") {
@@ -61,7 +61,7 @@ export class ActionChain {
     }
 
     chainOfAction<PARAMS, ACTION>(
-        action: ActionCreatorFsa<PARAMS>,
+        action: ActionCreatorTFSA<PARAMS>,
         handler: ActionCreatorOrHandler<PARAMS, ACTION>
     ): ActionChain {
         this.cases.push(new ChainFsa(action, handler));

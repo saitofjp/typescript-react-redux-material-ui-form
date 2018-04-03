@@ -38,8 +38,16 @@ class ChainType<PARAMS, ACTION> {
     }
 }
 
+export const combineChains = (...chains: ActionChain[]): ActionChain => new ActionChain(...chains);
+
 export class ActionChain {
-    private cases: Array<ChainFsa<any, any> | ChainType<any, any>> = [] //any以外の対処法が分からない。。
+    private cases: Array<ChainFsa<any, any> | ChainType<any, any>>
+
+    constructor(...chains: ActionChain[]) {
+        this.cases = chains
+            .map((chain) => chain.cases)
+            .reduce((a, b) => a.concat(b), []);
+    }
 
     /**
      * target action paylod is handler function params
@@ -76,23 +84,20 @@ export class ActionChain {
         return this;
     }
 
-    build() {
-        return this.cases;
+    handle(action: Action) {
+        return this.cases
+            .map((chain) => chain.handle(action))
+            .filter((nextAction) => nextAction);
     }
 }
 
-export const createActionChainMiddleware = (...chains: ActionChain[]): Middleware => {
-    const cases = chains
-        .map((chain) => chain.build())
-        .reduce((a, b) => a.concat(b), []);
-
+export const createActionChainMiddleware = (chain: ActionChain): Middleware => {
     return <S>(api: MiddlewareAPI<S>) =>
         (next: Dispatch<S>) => <A extends Action>(currentAction: A): A => {
             const result = next(currentAction);
 
-            cases
-                .map((chain) => chain.handle(currentAction))
-                .filter((nextAction) => nextAction)
+            chain
+                .handle(currentAction)
                 .map(api.dispatch)
 
             return result;

@@ -47,15 +47,15 @@ export class ActionChain {
      * @param handler
      */
     chain<PARAMS, ACTION>(
-        target: ActionCreatorFsa<PARAMS> | string ,
+        target: ActionCreatorFsa<PARAMS> | string,
         handler: ActionCreatorOrHandler<PARAMS, ACTION>
     ): ActionChain {
         if (typeof target == "string") {
             this.chainOfType(target, handler);
         } else if (target.match) {
             this.chainOfAction(target, handler);
-        } else if (target.type) {
-            this.chainOfType(target.type, handler);
+        } else {
+            this.chainOfType(target.toString(), handler);
         }
         return this;
     }

@@ -18,8 +18,8 @@ export interface EffectHandler<PARAMS, STATE> {
 export interface ActionCreatorHandler<PARAMS, ACTION> {
     (params: PARAMS): ACTION
 }
-export type Handler<PARAMS, ACTION, STATE> =
-    ActionCreatorHandler<PARAMS, ACTION>
+export type Handler<PARAMS, NEXT, STATE> =
+    ActionCreatorHandler<PARAMS, NEXT>
     | { effect: EffectHandler<PARAMS, STATE> };
 
 export const effect = <PARAMS, STATE>(effect: EffectHandler<PARAMS, STATE>)
@@ -27,9 +27,9 @@ export const effect = <PARAMS, STATE>(effect: EffectHandler<PARAMS, STATE>)
     return { effect }
 }
 
-export interface Chain<PARAMS, ACTION, STATE> {
+export interface Chain<PARAMS, RETURN, STATE> {
     type: string,
-    handler: Handler<PARAMS, ACTION, STATE>
+    handler: Handler<PARAMS, RETURN, STATE>
 }
 
 function isPromise(val: any): val is Promise<any> {
@@ -54,7 +54,7 @@ function getType(target: ActionCreator<any> | string): string {
     }
 }
 
-export const combineChains = <STATE>(...chains: ActionChain<STATE>[]): ActionChain<STATE> =>
+export const combineActionChains = <STATE>(...chains: ActionChain<STATE>[]): ActionChain<STATE> =>
     new ActionChain<STATE>(...chains);
 
 
@@ -69,20 +69,21 @@ export class ActionChain<STATE> {
 
     /**
      * target action payload is handler function params
-     * @param action
+     * @param target target actionCreator or type
      * @param handler
+     * @template NEXT Next action returned by handler
      */
-    chain<PARAMS, ACTION>(
+    chain<PARAMS, NEXT>(
         target: ActionCreator<PayloadAction<PARAMS>> | string,
-        handler: Handler<PARAMS, ACTION, STATE>
+        handler: Handler<PARAMS, NEXT, STATE>
     ): ActionChain<STATE> {
         this.chainOfType(getType(target), handler);
         return this;
     }
 
-    private chainOfType<PARAMS, ACTION>(
+     chainOfType<PARAMS, NEXT>(
         type: string,
-        handler: Handler<PARAMS, ACTION, STATE>
+        handler: Handler<PARAMS, NEXT, STATE>
     ): ActionChain<STATE> {
         this.cases.push({ type, handler });
         return this;
@@ -104,9 +105,9 @@ const handler = <PARAMS, S>(chain: Chain<PARAMS, any, S>) => (action: Action, ap
         const next = chain.handler(payload);
         if (!next) throw new Error("return value must be Action or Promise<Action>. Or, use 'effect()'");
         if (isPromise(next)) {
-            next.then(api.dispatch);
+           return next.then(api.dispatch);
         } else {
-            api.dispatch(next as any);
+           return api.dispatch(next as any);
         }
     }
 }

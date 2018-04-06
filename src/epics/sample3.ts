@@ -58,3 +58,9 @@ export const fetchListEpic: Epic<any, State> =
         .filter(() => !getState().sample3.isFetched)
         .map(({ payload }) => payload)
         .mergeMap(asyncTemplateRx(fetchListAsync, fetchPosts));
+
+export const fetchListEpic2: Epic<any, State> =
+    (action$, { getState, dispatch }) => action$.ofAction(initEnvironment)
+        .filter(() => !getState().sample3.isFetched)
+        .map(({ payload }) => payload)
+        .mergeMap(asyncTemplateRx(fetchListAsync, fetchPosts));

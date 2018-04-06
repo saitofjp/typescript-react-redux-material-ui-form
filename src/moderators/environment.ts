@@ -3,7 +3,7 @@ import { ActionChain } from './support/actionChain';
 import { ThunkAction } from './support';
 
 export const environmentChain = new ActionChain()
-  .chain<undefined>(initEnvironment, () : ThunkAction<void> => (dispatch) => {
+  .chain(initEnvironment, () : ThunkAction<void> => (dispatch) => {
     window.onscroll = () => {
       if (touchBottom()) {
         dispatch(scrollBottom());

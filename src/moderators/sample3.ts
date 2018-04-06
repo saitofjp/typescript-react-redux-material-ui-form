@@ -8,7 +8,7 @@ import { resetPage, receivePosts } from '../actions/sample2';
 import { ThunkAction } from './support';
 import { State } from '../reducers';
 
-const a = () => ({ type: "1" });
+// const a = () => ({ type: "1" });
 const b = (a:number) => ({ type: "1" , payload:1});
 
 export const sample3Chain = new ActionChain<State>()

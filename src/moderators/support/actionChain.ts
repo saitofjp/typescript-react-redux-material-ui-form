@@ -18,7 +18,8 @@ export interface EffectHandler<PARAMS, STATE> {
 export interface ActionCreatorHandler<PARAMS, ACTION> {
     (params: PARAMS): ACTION
 }
-export type Handler<PARAMS, ACTION, STATE> = ActionCreatorHandler<PARAMS, ACTION>
+export type Handler<PARAMS, ACTION, STATE> =
+    ActionCreatorHandler<PARAMS, ACTION>
     | { effect: EffectHandler<PARAMS, STATE> };
 
 export const effect = <PARAMS, STATE>(effect: EffectHandler<PARAMS, STATE>)
@@ -87,12 +88,12 @@ export class ActionChain<STATE> {
         return this;
     }
 
-    handle(handler: (chain: Chain<any, any, STATE>) => void) {
-        this.cases.map(handler)
+    handlers() {
+        return this.cases.map(handler)
     }
 }
 
-const handler = <S>(action: Action, api: MiddlewareAPI<S>) => <PARAMS>(chain: Chain<PARAMS, any, S>) => {
+const handler = <PARAMS, S>(chain: Chain<PARAMS, any, S>) => (action: Action, api: MiddlewareAPI<S>) => {
     if (!isType(action, chain.type)) {
         return;
     }
@@ -111,10 +112,12 @@ const handler = <S>(action: Action, api: MiddlewareAPI<S>) => <PARAMS>(chain: Ch
 }
 
 export const createActionChainMiddleware = (chain: ActionChain<any>): Middleware => {
-    return <STATE>(api: MiddlewareAPI<STATE>) =>
-        (next: Dispatch<STATE>) => <A extends Action>(action: A): A => {
+    return <STATE>(api: MiddlewareAPI<STATE>) => {
+        const handles = (<ActionChain<STATE>>chain).handlers();
+        return (next: Dispatch<STATE>) => <A extends Action>(action: A): A => {
             const result = next(action);
-            (<ActionChain<STATE>>chain).handle(handler(action, api));
+            handles.map((handle) => handle(action, api));
             return result;
         };
+    }
 }

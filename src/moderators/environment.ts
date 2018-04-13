@@ -1,6 +1,6 @@
 import { scrollBottom, initEnvironment } from '../actions/environment';
-import { ActionChain } from './support/actionChain';
 import { ThunkAction } from './support';
+import { ActionChain } from 'redux-action-chain';
 
 export const environmentChain = new ActionChain()
   .chain(initEnvironment, () : ThunkAction<void> => (dispatch) => {

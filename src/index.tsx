@@ -8,6 +8,9 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import * as injectTapEventPlugin from "react-tap-event-plugin";
 
 import registerServiceWorker from "./registerServiceWorker";
+import { ConnectedRouter } from 'react-router-redux';
+import Routes from "./components/Routes";
+import { history } from './history'
 
 import "flexboxgrid/css/flexboxgrid.css";
 
@@ -21,10 +24,15 @@ injectTapEventPlugin();
 // TODO https://github.com/mui-org/material-ui/blob/v1-beta/examples/create-react-app/src/withRoot.js;
 
 let store: Store<State> = configureStore();
+
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <App />
+      <ConnectedRouter history={history}>
+        <App >
+          <Routes />
+        </App>
+      </ConnectedRouter>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById("root")

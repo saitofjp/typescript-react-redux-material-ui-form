@@ -4,6 +4,7 @@ import sample2, { Sample2State } from "./sample2";
 import { reducer as formReducer, FormStateMap } from 'redux-form'
 import sample3 from "./sample3";
 import { Sample3 } from "../models/sample3";
+import { routerReducer } from 'react-router-redux'
 
 //https://redux.js.org/recipes/structuring-reducers/beyond-combinereducers
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers<State>({
   environment,
   sample2,
   sample3,
-  form :formReducer
+  form :formReducer,
+  router: routerReducer
 });
 
 export default rootReducer;
